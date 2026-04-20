@@ -4,6 +4,7 @@
 [![Made with Gemini](https://img.shields.io/badge/AI-Google%20Gemini%202.5-blue?logo=google)](https://ai.google.dev)
 [![Firebase](https://img.shields.io/badge/Backend-Firebase-orange?logo=firebase)](https://firebase.google.com)
 [![License](https://img.shields.io/badge/License-Educational-lightgrey)](#)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://mediscan-ai-2007.web.app)
 
 MediScan AI analyzes medical lab reports using Google Gemini AI — extracting biomarkers, validating them against **30+ clinical reference ranges**, and explaining results in plain, jargon-free language. Supports 20+ languages.
 
