@@ -1,133 +1,77 @@
-# 🏥 MediScan AI
-> Understand your health, instantly.
+# 🏥 MediScan AI — Premium Health Analyzer
 
-[![Made with Gemini](https://img.shields.io/badge/AI-Google%20Gemini%202.5-blue?logo=google)](https://ai.google.dev)
-[![Firebase](https://img.shields.io/badge/Backend-Firebase-orange?logo=firebase)](https://firebase.google.com)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-project.web.app)
-[![License](https://img.shields.io/badge/License-Educational-lightgrey)](#)
+![MediScan AI Header](https://raw.githubusercontent.com/your-username/mediscan-ai/main/assets/banner.png)
 
-MediScan AI analyzes medical lab reports using Google Gemini AI — extracting biomarkers, validating them against **30+ clinical reference ranges**, and explaining results in plain, jargon-free language. Supports 20+ languages.
+> **Understand your health, instantly.** MediScan AI translates complex medical jargon into clear, actionable insights using Google Gemini AI.
+
+MediScan AI is a state-of-the-art medical report analyzer that uses advanced AI to extract biomarkers, assess health risks, and provide personalized coaching—all while keeping your data private and secure.
 
 ---
 
-## 📸 Screenshots
+## ✨ Key Features
 
-### Landing Page
-![MediScan Landing Page](screenshots/landing.png)
-
-### Dashboard — Triage Alerts & Risk Score
-![MediScan Dashboard](screenshots/dashboard.png)
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---|---|
-| 🔬 **AI Report Analysis** | Upload PDF or image → structured biomarker extraction via Gemini |
-| 🚨 **Smart Triage** | Flags Critical / Attention / Monitor / Normal with color coding |
-| ✅ **Client-Side Validation** | AI output cross-checked against 30+ medical reference ranges |
-| 📊 **Interactive Dashboard** | Risk score ring, triage alerts, health coaching |
-| 🤖 **AI Chat Assistant** | Ask follow-up questions about your results |
-| 🌍 **20+ Languages** | Hindi, Spanish, French, Arabic, Japanese, and more |
-| 🔒 **Privacy-First** | Reports sent to Gemini only — never stored on any server |
-| 👨‍👩‍👧 **Family Profiles** | Track reports for Self, Mother, Father, Child |
-| 📄 **PDF Export** | Clean downloadable summary report |
-| 🔊 **Voice I/O** | Speak symptoms, listen to your summary |
-
----
-
-## 🧠 How It Works
-
-```
-1. Upload medical report (PDF / Image)
-         ↓
-2. Gemini AI extracts structured biomarker data
-         ↓
-3. validateAIOutput() cross-checks 30+ clinical reference ranges
-         ↓
-4. Risk score + triage levels assigned
-         ↓
-5. Interactive dashboard + charts rendered
-```
-
----
-
-## 🛡️ Security Model
-
-| Layer | Implementation |
-|---|---|
-| **Gemini API Key** | User-entered → `localStorage` only. Never in source code. |
-| **Firestore Rules** | User-scoped: `request.auth.uid == userId`. Default deny. |
-| **XSS Prevention** | `escapeHTML()` on all user-injected DOM content |
-| **Rate Limiting** | 5-second cooldown between API calls |
-| **Response Caching** | LRU cache prevents duplicate API costs |
-| **Input Validation** | AI output overridden when it conflicts with reference ranges |
+- **🔬 AI Lab Extraction**: Upload PDFs or images of blood tests and reports.
+- **🚨 Smart Triage**: Automatically flags "Critical", "Attention", and "Normal" values based on clinical ranges.
+- **📊 Interactive Dashboard**: Visualize your health metrics with dynamic charts and risk dials.
+- **🤖 AI Health Assistant**: Chat with a specialized AI to ask follow-up questions about your report.
+- **🌍 20+ Languages**: Full multi-language support (English, Hindi, Spanish, etc.).
+- **🔐 Secure & Private**: Uses SHA-256 local hashing and secure secret management.
+- **📄 Professional PDF Export**: Generate and print a clean summary for your doctor.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | HTML5, CSS3, Vanilla JavaScript |
-| AI | Google Gemini 2.5 Flash |
-| Auth & Database | Firebase Authentication + Firestore |
-| Charts | Chart.js |
-| Hosting | Firebase Hosting |
+- **Frontend**: Vanilla HTML5, Modern CSS3 (Glassmorphism), Javascript (ES6+)
+- **AI Engine**: Google Gemini AI (Pro & Flash)
+- **Database/Auth**: Firebase (Firestore & Authentication)
+- **Email/OTP**: EmailJS
+- **Icons**: Phosphor Icons
+- **Charts**: Chart.js
 
 ---
 
-## 🚀 Run Locally
+## 🚀 Setup & Installation
 
-**You'll need:** A free [Gemini API key](https://aistudio.google.com/apikey) (takes 2 minutes)
+To protect private API keys, this project uses a `secrets.js` architecture.
 
-```bash
-git clone https://github.com/your-username/mediscan-ai.git
-cd mediscan-ai
-npx serve .
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/mediscan-ai.git
+   cd mediscan-ai
+   ```
 
-Open `http://localhost:3000` → Enter your Gemini API key → Upload a report.
+2. **Configure Secrets**:
+   - Locate `secrets.example.js` in the root directory.
+   - **Rename** it to `secrets.js`.
+   - Open `secrets.js` and fill in your Firebase and EmailJS credentials.
+   - *Note: `secrets.js` is automatically ignored by git to keep your keys safe.*
 
-No npm install, no build step. It's a static app — just serve and go.
+3. **Run Locally**:
+   Simply open `index.html` in any modern web browser or use a Live Server extension.
 
 ---
 
-## 📁 File Structure
+## 🛡️ Security & Privacy
 
-```
-mediscan-ai/
-├── index.html           # Landing page + app UI
-├── style.css            # Complete styling (~2500 lines)
-├── app.js               # Application logic (~1200 lines)
-├── config.js            # Firebase config + app constants
-├── firestore.rules      # User-scoped security rules
-├── firebase.json        # Firebase deployment config
-├── screenshots/
-│   ├── landing.png
-│   └── dashboard.png
-├── TERMS.md             # Terms of service & privacy policy
-└── README.md
-```
+MediScan AI is designed with privacy-first principles:
+- **Zero-Storage Policy**: We do not store your medical reports on our servers.
+- **Local Hashing**: Credentials are hashed on your device.
+- **Git Protection**: Sensitive configuration is excluded from source control.
+
+---
+
+## 👨‍💻 Author
+
+Built with ❤️ by **Yash**
+*Made for the **World*** 🌎
 
 ---
 
 ## ⚠️ Disclaimer
 
-MediScan AI is an **educational portfolio project**. It is not a licensed medical device and does not provide medical advice. AI output should never replace professional medical consultation. See [TERMS.md](TERMS.md) for full details.
+**MediScan AI is an educational tool for informational purposes only.** It does not provide medical diagnoses, treatment advice, or professional opinions. Always seek the advice of a physician or other qualified health provider with any questions you may have regarding a medical condition.
 
 ---
 
-## 🔮 Roadmap
-
-- [ ] Firebase Functions backend (server-side Gemini calls)
-- [ ] Real email OTP via SendGrid
-- [ ] Unit tests with Jest
-- [ ] TypeScript migration
-- [ ] Offline support via Service Worker
-- [ ] Multi-report trend comparison
-
----
-
-*Built by **Yash** · 2nd semester B.Tech AIML · Made for the World ❤️*
+*© 2026 MediScan AI. All rights reserved.*

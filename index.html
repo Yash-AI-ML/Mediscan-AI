@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediScan AI - Premium Health Analyzer</title>
+  <meta name="description" content="Upload your medical report and get AI-powered health insights in seconds. Free, private, and available in 20+ languages.">
+  <meta name="keywords" content="medical report analyzer, AI health, lab results, health insights">
+  <meta name="author" content="Yash">
+  <!-- Modern Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-mode">
+
+  <!-- ==================== LANDING PAGE ==================== -->
+  <div id="landingPage" class="landing-page active-view">
+
+    <!-- Top Nav -->
+    <nav class="landing-nav">
+      <div class="logo">
+        <i class="ph-fill ph-heartbeat"></i>
+        <span>MediScan AI</span>
+      </div>
+      <div class="nav-right">
+        <span class="nav-tagline"><i class="ph ph-sparkle"></i> Powered by Google Gemini AI</span>
+        <div class="nav-auth-group">
+          <button class="btn btn-ghost-sm" id="btnNavLogin" onclick="openAuthModal('login')"><i class="ph ph-sign-in"></i> Log In</button>
+          <button class="btn btn-primary btn-nav" id="btnNavSignup" onclick="openAuthModal('signup')">Sign Up Free</button>
+          <div class="nav-user-pill hidden" id="navUserPill">
+            <div class="nav-avatar"><i class="ph-fill ph-user"></i></div>
+            <span id="navUserName"></span>
+            <button class="nav-logout-btn" onclick="authLogout()" title="Log out"><i class="ph ph-sign-out"></i></button>
+          </div>
+          <button class="icon-btn theme-toggle-btn" title="Toggle Dark Mode">
+            <i class="ph ph-moon"></i>
+          </button>
+          <button class="btn btn-outline btn-nav" onclick="startApp()">Open App</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge">Made by <strong>Yash</strong> &nbsp;·&nbsp; Made for the <strong>World</strong> <i class="ph-fill ph-heart watermark-heart"></i></div>
+
+      <h1>Understand your health,<br><span class="gradient-text">instantly.</span></h1>
+
+      <p class="hero-desc">
+        Upload your medical report or describe your symptoms.<br>
+        MediScan AI translates complex medical jargon into clear,<br class="br-desktop">
+        actionable insights — in seconds.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-hero" onclick="startApp()">
+          <i class="ph ph-heartbeat"></i> Analyze My Report
+        </button>
+        <a class="btn btn-ghost" href="#how-it-works">How it works <i class="ph ph-arrow-down"></i></a>
+      </div>
+
+      <div class="hero-trust">
+        <span><i class="ph ph-shield-check"></i> 100% Private</span>
+        <span class="trust-dot">·</span>
+        <span><i class="ph ph-cloud"></i> Save Reports with Login</span>
+        <span class="trust-dot">·</span>
+        <span><i class="ph ph-device-mobile"></i> Works on Any Device</span>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num">10K+</span>
+        <span class="stat-label">Trusted by Users</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">7s</span>
+        <span class="stat-label">Average Analysis Time</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">20+</span>
+        <span class="stat-label">Languages Supported</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">Free</span>
+        <span class="stat-label">Always</span>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="how-section" id="how-it-works">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three steps to clarity</h2>
+      <p class="section-sub">No medical degree required. Just upload and let the AI do the work.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i class="ph ph-upload-simple"></i></div>
+          <h3>Upload Your Report</h3>
+          <p>Drop a lab result, prescription, or scan — PDF or image. We handle the rest.</p>
+        </div>
+        <div class="step-connector"><i class="ph ph-arrow-right"></i></div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i class="ph ph-magic-wand"></i></div>
+          <h3>AI Analyzes It</h3>
+          <p>Our Gemini-powered engine reads every value, flags anomalies and calculates your risk score.</p>
+        </div>
+        <div class="step-connector"><i class="ph ph-arrow-right"></i></div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i class="ph ph-stethoscope"></i></div>
+          <h3>Get Clear Advice</h3>
+          <p>Receive a plain-English summary, next steps, and smart questions to ask your doctor.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature highlights -->
+    <section class="features-section">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need, nothing you don't</h2>
+
+      <div class="features-grid">
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-chart-bar"></i></div>
+          <div class="feature-tile-body">
+            <h4>Biomarker Dashboard</h4>
+            <p>Visual charts for all your key health metrics in one view.</p>
+          </div>
+        </div>
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-warning-circle"></i></div>
+          <div class="feature-tile-body">
+            <h4>Triage Alerts</h4>
+            <p>Color-coded flags instantly highlight critical, moderate, and normal values.</p>
+          </div>
+        </div>
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-speaker-high"></i></div>
+          <div class="feature-tile-body">
+            <h4>Voice Summary</h4>
+            <p>Listen to your health summary in your preferred language hands-free.</p>
+          </div>
+        </div>
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-clock-counter-clockwise"></i></div>
+          <div class="feature-tile-body">
+            <h4>Scan History</h4>
+            <p>Review and compare all past reports across family profiles.</p>
+          </div>
+        </div>
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-download-simple"></i></div>
+          <div class="feature-tile-body">
+            <h4>Export to PDF</h4>
+            <p>Save a clean, shareable summary report with one tap.</p>
+          </div>
+        </div>
+        <div class="feature-tile">
+          <div class="feature-tile-icon"><i class="ph ph-chats"></i></div>
+          <div class="feature-tile-body">
+            <h4>AI Chat Assistant</h4>
+            <p>Ask follow-up questions about your results in real time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-card">
+        <h2>Ready to understand your health?</h2>
+        <p>It's free, private, and takes less than a minute.</p>
+        <button class="btn btn-primary btn-hero" onclick="startApp()">
+          <i class="ph ph-heartbeat"></i> Get Started Now
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <div class="footer-brand">
+        <i class="ph-fill ph-heartbeat"></i>
+        <span>MediScan AI</span>
+      </div>
+      <p class="footer-copy">
+        Made with <i class="ph-fill ph-heart watermark-heart"></i> by <strong>Yash</strong> &nbsp;·&nbsp; Made for the <strong>World</strong>
+      </p>
+      <p class="footer-disclaimer">
+        <strong>Disclaimer:</strong> MediScan AI is an educational tool powered by AI for informational purposes only. 
+        It does not provide medical diagnoses, treatment advice, or professional opinions. 
+        Always seek the advice of a physician or other qualified health provider with any questions you may have regarding a medical condition. 
+        Never disregard professional medical advice because of something you have read on this application.
+        <br><a href="TERMS.md" target="_blank" style="color: var(--primary); font-size: 0.82rem;">Terms of Service & Privacy Policy</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- ==================== MAIN APP ==================== -->
+  <div id="appView" class="app-view hidden-view">
+    <div class="app-container">
+      <header class="header">
+        <div class="logo-area" onclick="showLanding()" style="cursor: pointer;">
+          <i class="ph-fill ph-heartbeat" style="color: var(--primary);"></i>
+          <h1>MediScan</h1>
+        </div>
+        <div class="header-controls">
+          <button class="icon-btn" title="Home" onclick="showLanding()">
+            <i class="ph ph-house"></i>
+          </button>
+          <select id="profileSelect" class="styled-select">
+            <option value="Self">🧑 Self</option>
+            <option value="Mother">👩 Mother</option>
+            <option value="Father">👨 Father</option>
+            <option value="Child">🧒 Child</option>
+          </select>
+          <select id="languageSelect" class="styled-select">
+            <option value="en">🇬🇧 English</option>
+            <option value="hi">🇮🇳 हिंदी</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="pt">🇧🇷 Português</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="bn">🇧🇩 বাংলা</option>
+            <option value="te">🇮🇳 తెలుగు</option>
+            <option value="mr">🇮🇳 मराठी</option>
+            <option value="ta">🇮🇳 தமிழ்</option>
+            <option value="ur">🇵🇰 اردو</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="nl">🇳🇱 Nederlands</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="th">🇹🇭 ภาษาไทย</option>
+          </select>
+          <button class="icon-btn theme-toggle-btn" title="Toggle Dark Mode">
+            <i class="ph ph-moon"></i>
+          </button>
+          <!-- Logged-in user indicator in app header -->
+          <div class="app-user-pill hidden" id="appUserPill">
+            <div class="nav-avatar"><i class="ph-fill ph-user"></i></div>
+            <span id="appUserName"></span>
+          </div>
+          <button class="icon-btn" id="btnAppLogin" onclick="openAuthModal('login')" title="Log in to save reports">
+            <i class="ph ph-user"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="dashboard">
+          <i class="ph ph-squares-four"></i> <span>Dashboard</span>
+        </button>
+        <button class="tab-btn" data-tab="new-scan">
+          <i class="ph ph-scan"></i> <span>New Scan</span>
+        </button>
+        <button class="tab-btn" data-tab="history">
+          <i class="ph ph-clock-counter-clockwise"></i> <span>History</span>
+        </button>
+      </div>
+
+      <div class="scroll-container">
+        <!-- Dashboard Tab -->
+        <div id="tab-dashboard" class="tab-content active">
+          <div id="dashboardEmpty" class="empty-state">
+            <div class="empty-icon-wrap"><i class="ph ph-file-dashed"></i></div>
+            <h2>No Data Available</h2>
+            <p>Upload a report or describe your symptoms to generate your health dashboard.</p>
+            <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'new-scan\']').click()">
+              <i class="ph ph-plus"></i> Start New Scan
+            </button>
+          </div>
+
+          <div id="dashboardActions" class="dashboard-actions" style="display: none;">
+            <button class="btn btn-secondary" id="btnToggleChart">
+              <i class="ph ph-chart-bar"></i> View Chart
+            </button>
+            <button class="btn btn-primary-outline" id="btnExportPdf">
+              <i class="ph ph-download-simple"></i> Export PDF
+            </button>
+          </div>
+
+          <div id="dashboardContent" style="display: none;">
+            <!-- Important Medical Disclaimer Banner -->
+            <div class="medical-disclaimer-banner">
+              <i class="ph-fill ph-warning-octagon"></i>
+              <p><strong>Medical Disclaimer:</strong> This AI-generated analysis is for informational purposes only. It is not a diagnosis or a substitute for professional medical advice. Always consult a doctor before making health decisions.</p>
+            </div>
+
+            <div class="dashboard-grid">
+              <div class="card risk-card">
+                <div class="card-header">
+                  <h3><i class="ph ph-activity"></i> Health Risk</h3>
+                </div>
+                <div class="risk-dial-container">
+                  <svg class="risk-ring" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" class="ring-bg"></circle>
+                    <circle cx="50" cy="50" r="40" class="ring-progress" id="riskRingProgress"></circle>
+                  </svg>
+                  <div class="risk-score-value" id="dashRiskScore">0</div>
+                </div>
+                <div class="risk-status" id="dashUrgency"></div>
+              </div>
+
+              <div class="card alert-card">
+                <div class="card-header">
+                  <h3><i class="ph ph-warning-circle"></i> Triage Alerts</h3>
+                </div>
+                <div id="dashTriageAlerts" class="triage-list"></div>
+              </div>
+
+              <div class="card coach-card">
+                <div class="card-header">
+                  <h3><i class="ph ph-stethoscope"></i> AI Health Coach</h3>
+                </div>
+                <p id="dashHealthCoach" class="coach-text"></p>
+                <div class="next-step-box">
+                  <span class="next-step-label">Next Step:</span>
+                  <span id="dashFollowUp" class="next-step-value"></span>
+                </div>
+                <button class="btn btn-secondary full-width" id="btnSpeakSummary">
+                  <i class="ph ph-speaker-high"></i> Listen to Summary
+                </button>
+                <button class="btn btn-primary-outline full-width" style="margin-top: 12px;" onclick="findSpecialist()">
+                  <i class="ph ph-map-pin"></i> Find Specialist Nearby
+                </button>
+              </div>
+            </div>
+
+            <!-- Confidence & Limitations from AI -->
+            <div id="dashExtraInfo" class="extra-info-section"></div>
+
+            <div class="card glass-card">
+              <div class="card-header">
+                <h3><i class="ph ph-flask"></i> Symptom Correlation</h3>
+              </div>
+              <p id="dashSymptomCorrelation" class="correlation-text"></p>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="card feedback-card" id="feedbackSection">
+              <h3>Was this analysis helpful?</h3>
+              <div class="feedback-actions">
+                <button class="feedback-btn" id="btnFeedbackUp" title="Helpful">
+                  <i class="ph ph-thumbs-up"></i>
+                </button>
+                <button class="feedback-btn" id="btnFeedbackDown" title="Not Helpful">
+                  <i class="ph ph-thumbs-down"></i>
+                </button>
+              </div>
+              <div id="feedbackTextContainer" class="hidden" style="margin-top: 16px; text-align: left;">
+                <textarea id="feedbackTextInput" class="styled-input" rows="2"
+                  placeholder="Tell us more about your experience..."></textarea>
+                <button class="btn btn-primary full-width" id="btnSubmitFeedback" style="margin-top: 12px;">Submit
+                  Feedback</button>
+              </div>
+              <div id="feedbackThanks" class="feedback-thanks hidden">
+                Thank you for your feedback! ❤️
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- New Scan Tab -->
+        <div id="tab-new-scan" class="tab-content">
+          <div class="card glass-card api-card" id="apiKeyContainer">
+            <div class="form-group">
+              <label><i class="ph ph-key"></i> Gemini API Key</label>
+              <input type="password" id="apiKeyInput" class="styled-input" placeholder="Paste your API Key here">
+              <small class="helper-text">Required for analysis. Stored securely on your device.</small>
+            </div>
+          </div>
+
+          <div class="scan-layout">
+            <div class="card scan-step">
+              <div class="step-header">
+                <div class="step-num">1</div>
+                <h3>Add Symptoms <span class="optional-tag">Optional</span></h3>
+              </div>
+
+              <div id="httpsWarning" class="warning-banner" style="display: none;">
+                <strong>Microphone Blocked:</strong> Mobile browsers require HTTPS.
+              </div>
+
+              <div class="input-wrapper">
+                <textarea id="symptomsInput" class="styled-input" rows="4"
+                  placeholder="How are you feeling? (e.g., dizzy, headache)"></textarea>
+                <button id="btnVoiceInput" class="voice-btn" title="Speak">
+                  <i class="ph-fill ph-microphone"></i>
+                </button>
+              </div>
+              <div id="voiceStatus" class="voice-status">Listening... <span class="dot-typing"></span></div>
+            </div>
+
+            <div class="card scan-step">
+              <div class="step-header">
+                <div class="step-num">2</div>
+                <h3>Upload Report</h3>
+              </div>
+
+              <div class="upload-area" id="dropZone">
+                <div class="upload-icon-pulse">
+                  <i class="ph ph-cloud-arrow-up"></i>
+                </div>
+                <h4>Drag & Drop your file</h4>
+                <p>or click to browse</p>
+                <span class="file-formats">Supports PDF, JPG, PNG</span>
+                <input type="file" id="reportFile" accept="image/*,.pdf">
+                <div id="fileNameDisplay" class="file-name"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="analyze-action">
+            <button class="btn btn-primary btn-massive" id="analyzeBtn" disabled>
+              <i class="ph-fill ph-magic-wand"></i> Analyze Health Data
+            </button>
+          </div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="tab-history" class="tab-content">
+          <div class="card history-card">
+            <div class="card-header">
+              <h3><i class="ph ph-folder-open"></i> Previous Scans</h3>
+            </div>
+            <div id="historyList" class="history-list">
+              <p class="empty-text">No history available for this profile.</p>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /scroll-container -->
+
+
+
+    </div>
+  </div>
+
+  <!-- Chat Widget -->
+  <button class="chat-toggle" id="chatToggleBtn">
+    <i class="ph-fill ph-chat-teardrop-dots"></i>
+  </button>
+
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div class="chat-title">
+        <div class="chat-avatar"><i class="ph-fill ph-robot"></i></div>
+        <span>Health Assistant</span>
+      </div>
+      <button id="chatCloseBtn"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg ai">
+        <div class="msg-bubble">Hello! I'm your AI Assistant. Upload a report and ask me anything about it.</div>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Ask a question...">
+      <button id="chatSendBtn"><i class="ph-fill ph-paper-plane-right"></i></button>
+    </div>
+  </div>
+
+  <!-- Chart Modal -->
+  <div class="modal-overlay" id="chartModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2><i class="ph-fill ph-chart-line-up"></i> Biomarker Levels</h2>
+        <button id="closeChartModal" class="icon-btn"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medical Consent Modal (shown on first visit) -->
+  <div class="modal-overlay" id="consentModal" style="display:none; z-index:5000;">
+    <div class="consent-card">
+      <div class="consent-icon"><i class="ph-fill ph-shield-warning"></i></div>
+      <h2>Important Medical Disclaimer</h2>
+      <div class="consent-body">
+        <p>Before using MediScan AI, please understand:</p>
+        <ul>
+          <li><strong>Not a doctor:</strong> This tool uses AI for <em>informational purposes only</em>. It does NOT provide medical diagnoses or treatment advice.</li>
+          <li><strong>Always consult a professional:</strong> Never make health decisions based solely on this tool's output. Always consult a qualified physician.</li>
+          <li><strong>Privacy:</strong> Your data is processed locally and via the Gemini API. We do not store your medical reports on our servers.</li>
+          <li><strong>No liability:</strong> The developers accept no responsibility for actions taken based on AI-generated analysis.</li>
+          <li><strong>Experimental:</strong> AI can make mistakes. Results should be verified by a healthcare professional.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary full-width" id="btnAcceptConsent">
+        <i class="ph ph-check-circle"></i> I Understand & Accept
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Screen Loader -->
+  <div class="loader-overlay" id="loader">
+    <div class="glass-loader">
+      <div class="spinner-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+      </div>
+      <div id="loaderText" class="loader-text">Analyzing your health data...</div>
+      <p class="loader-subtext">Our AI is processing your report. This takes a few seconds.</p>
+    </div>
+  </div>
+
+
+  <!-- ==================== AUTH MODAL ==================== -->
+  <div class="modal-overlay" id="authModal" style="z-index:4000;">
+    <div class="auth-card">
+      <!-- Close -->
+      <button class="auth-close" onclick="closeAuthModal()"><i class="ph ph-x"></i></button>
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">Log In</button>
+        <button class="auth-tab" id="authTabSignup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="authFormLogin" class="auth-form-wrap">
+        <div class="auth-brand"><i class="ph-fill ph-heartbeat"></i> MediScan AI</div>
+        <p class="auth-sub">Welcome back! Log in to access your saved reports.</p>
+
+        <div class="auth-field">
+          <label><i class="ph ph-envelope"></i> Email</label>
+          <input type="email" id="loginEmail" class="styled-input" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label><i class="ph ph-lock-simple"></i> Password</label>
+          <div class="auth-pwd-wrap">
+            <input type="password" id="loginPassword" class="styled-input" placeholder="Your password" autocomplete="current-password">
+            <button class="pwd-toggle" onclick="togglePwd('loginPassword',this)"><i class="ph ph-eye"></i></button>
+          </div>
+        </div>
+
+        <div class="auth-error hidden" id="loginError"></div>
+
+        <button class="btn btn-primary full-width" style="margin-top:8px;" onclick="authLogin()">
+          <i class="ph ph-sign-in"></i> Log In
+        </button>
+        <p class="auth-switch">Don't have an account? <a href="#" onclick="switchAuthTab('signup'); return false;">Sign up free</a></p>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="authFormSignup" class="auth-form-wrap hidden">
+        <div class="auth-brand"><i class="ph-fill ph-heartbeat"></i> MediScan AI</div>
+        <p class="auth-sub">Create a free account to save and revisit your health reports.</p>
+
+        <div class="auth-field">
+          <label><i class="ph ph-user"></i> Full Name</label>
+          <input type="text" id="signupName" class="styled-input" placeholder="Yash Raj" autocomplete="name">
+        </div>
+        <div class="auth-field">
+          <label><i class="ph ph-envelope"></i> Email</label>
+          <input type="email" id="signupEmail" class="styled-input" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label><i class="ph ph-lock-simple"></i> Password <span style="font-size:0.78rem;opacity:.6;">(min 8 chars)</span></label>
+          <div class="auth-pwd-wrap">
+            <input type="password" id="signupPassword" class="styled-input" placeholder="Create a strong password" autocomplete="new-password">
+            <button class="pwd-toggle" onclick="togglePwd('signupPassword',this)"><i class="ph ph-eye"></i></button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label><i class="ph ph-lock-simple"></i> Confirm Password</label>
+          <div class="auth-pwd-wrap">
+            <input type="password" id="signupConfirm" class="styled-input" placeholder="Repeat your password" autocomplete="new-password">
+            <button class="pwd-toggle" onclick="togglePwd('signupConfirm',this)"><i class="ph ph-eye"></i></button>
+          </div>
+        </div>
+
+        <div class="auth-error hidden" id="signupError"></div>
+
+        <button class="btn btn-primary full-width" style="margin-top:8px;" onclick="authSignup()">
+          <i class="ph ph-user-plus"></i> Create Account
+        </button>
+        <p class="auth-switch">Already have an account? <a href="#" onclick="switchAuthTab('login'); return false;">Log in</a></p>
+      </div>
+
+      <!-- OTP Verification Step -->
+      <div id="authFormOTP" class="auth-form-wrap hidden">
+        <div class="auth-brand"><i class="ph-fill ph-heartbeat"></i> Verify Account</div>
+        <p class="auth-sub" id="otpSubtext">We've sent a 6-digit code to your email.</p>
+
+        <div class="auth-field">
+          <label><i class="ph ph-key"></i> Enter OTP</label>
+          <div class="otp-input-group">
+            <input type="text" maxlength="6" id="otpInput" class="styled-input otp-field" placeholder="000000" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="auth-error hidden" id="otpError"></div>
+
+        <button class="btn btn-primary full-width" style="margin-top:8px;" onclick="verifyOTP()">
+          <i class="ph ph-check-circle"></i> Verify & Sign Up
+        </button>
+        
+        <div class="otp-timer" id="otpTimer">Resend code in <span id="timerSec">30</span>s</div>
+        <button class="btn btn-ghost-sm full-width hidden" id="btnResendOTP" onclick="authSignup()">
+          <i class="ph ph-arrows-clockwise"></i> Resend Code
+        </button>
+        
+        <p class="auth-switch"><a href="#" onclick="switchAuthTab('signup'); return false;"><i class="ph ph-arrow-left"></i> Back to Sign Up</a></p>
+      </div>
+
+      <!-- Security note -->
+      <p class="auth-security"><i class="ph ph-shield-check"></i> Credentials stored securely with SHA-256 hashing on your device.</p>
+    </div>
+  </div>
+
+  <noscript><p style="text-align:center;padding:40px;">MediScan AI requires JavaScript to run. Please enable it in your browser.</p></noscript>
+
+  <!-- Firebase Compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- Load secrets first (ignored by git) -->
+  <script src="secrets.js"></script>
+  <script src="config.js?v=21"></script>
+  <script src="app.js?v=20"></script>
+
+  <script>
+    // Consent modal handler
+    document.getElementById('btnAcceptConsent').addEventListener('click', function() {
+      localStorage.setItem('mediscan_consent_accepted', 'true');
+      document.getElementById('consentModal').style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>
